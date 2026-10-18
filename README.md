@@ -1,12 +1,13 @@
 # Claude Code allowance panel
 
-A Claude Code extension that shows how much of your plan's usage limits you have
-used, on one line just above the prompt:
+A Claude Code extension that shows how full your context window is and how much
+of your plan's usage limits you have used, on one line just above the prompt:
 
 ```
-5h:41%:1h15m - W:71%:2d10h
+C:16% - 5h:41%:1h15m - W:71%:2d10h
 ```
 
+- **C**: how full this session's context window is.
 - **5h**: your 5-hour session limit. Percent used, then the time until it resets.
 - **W**: your weekly limit. Percent used, then the time until it resets.
 
@@ -15,8 +16,8 @@ whenever a limit moves by a whole percent. It works in the terminal and in the
 Claude desktop app's Code tab.
 
 The figures come from Claude's replies, so the line appears after your first
-message in a session. It only shows on a Pro or Max subscription; with an API
-key there are no plan limits to show.
+message in a session. The 5h and W limits only show on a Pro or Max
+subscription; with an API key the line shows the context section alone.
 
 ## Install
 

@@ -1,6 +1,6 @@
 {
   "name": "usage-panel",
-  "version": "0.1.0",
-  "description": "Shows how much of your 5-hour and weekly usage limits you have used, just above the prompt",
+  "version": "0.2.0",
+  "description": "Shows your context window fill and how much of your 5-hour and weekly usage limits you have used, just above the prompt",
   "author": { "name": "delphium226" }
 }
