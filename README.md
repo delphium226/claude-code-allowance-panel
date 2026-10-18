@@ -11,9 +11,9 @@ C:16% - 5h:41%:1h15m - W:71%:2d10h
 - **5h**: your 5-hour session limit. Percent used, then the time until it resets.
 - **W**: your weekly limit. Percent used, then the time until it resets.
 
-The percentages are yellow, and either one turns red from 90%. The line updates
-whenever a limit moves by a whole percent. It works in the terminal and in the
-Claude desktop app's Code tab.
+The percentages are yellow, and any of them turns bright red once it goes over
+85%. The line updates whenever a limit moves by a whole percent. It works in
+the terminal and in the Claude desktop app's Code tab.
 
 The figures come from Claude's replies, so the line appears after your first
 message in a session. The 5h and W limits only show on a Pro or Max

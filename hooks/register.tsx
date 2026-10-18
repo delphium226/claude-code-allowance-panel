@@ -30,8 +30,10 @@ export const segment = (limit: SessionRateLimit, now: number): Part => ({
   left: timeLeft(limit.resetsAt, now),
 })
 
-// Every percentage in yellow, turning red from 90%.
-const colorFor = (percent: number) => (percent >= 90 ? 'red' : 'yellow')
+// Every percentage in yellow, turning bright red once the number shown is over
+// 85%: the terminal's own bright red there, a vivid hex red elsewhere.
+export const colorFor = (percent: number, surface: string) =>
+  Math.round(percent) > 85 ? (surface === 'terminal' ? 'redBright' : '#ff453a') : 'yellow'
 
 const ORDER = ['five_hour', 'seven_day']
 const sorted = (limits: SessionRateLimit[]) =>
@@ -74,7 +76,7 @@ export const register: Register = on => {
             {i > 0 && <Text dimColor>{' - '}</Text>}
             <Text bold>{part.label}</Text>
             <Text dimColor>:</Text>
-            <Text color={colorFor(part.percent)}>{`${Math.round(part.percent)}%`}</Text>
+            <Text color={colorFor(part.percent, e.surface)}>{`${Math.round(part.percent)}%`}</Text>
             {part.left && <Text dimColor>{`:${part.left}`}</Text>}
           </Box>
         ))}

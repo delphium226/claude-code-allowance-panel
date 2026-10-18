@@ -44,6 +44,21 @@ for (const surface of ['terminal', 'desktop'] as const) {
     expect((await ui.find({ type: 'Text', text: '16%' }))?.props).toMatchObject({ color: 'yellow' })
   })
 
+  test(`turns a percent bright red only over 85% on ${surface}`, async ($, on) => {
+    usage(on, { window: 1_000_000, percent: 85 }, [
+      { kind: 'five_hour', percentUsed: 85.4, resetsAt: '2026-10-18T13:15:00Z' },
+      { kind: 'seven_day', percentUsed: 86, resetsAt: '2026-10-20T22:00:00Z' },
+    ])
+    const ui = await mount($, surface)
+    const bright = surface === 'terminal' ? 'redBright' : '#ff453a'
+    expect((await ui.find({ type: 'Text', text: '86%' }))?.props).toMatchObject({ color: bright })
+    // 85 and 85.4 are not over 85: both stay yellow.
+    for (const text of (await ui.findAll({ type: 'Text', text: '85%' }))) {
+      expect(text.props).toMatchObject({ color: 'yellow' })
+    }
+    expect(await ui.findAll({ type: 'Text', text: '85%' })).toHaveLength(2)
+  })
+
   test(`shows context alone without plan limits on ${surface}`, async ($, on) => {
     usage(on, CONTEXT, [])
     const ui = await mount($, surface)
