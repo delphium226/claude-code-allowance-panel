@@ -1,0 +1,13 @@
+{
+  "name": "claude-code-allowance-panel",
+  "description": "A one-line view of your Claude Code 5-hour and weekly usage limits",
+  "owner": {
+    "name": "delphium226"
+  },
+  "plugins": [
+    {
+      "name": "usage-panel",
+      "source": "./"
+    }
+  ]
+}
