@@ -41,20 +41,19 @@ for (const surface of ['terminal', 'desktop'] as const) {
     for (const label of ['C', '5h', 'W']) {
       expect((await ui.find({ type: 'Text', text: label }))?.props).toMatchObject({ bold: true })
     }
-    expect((await ui.find({ type: 'Text', text: '16%' }))?.props).toMatchObject({ color: 'yellow' })
+    expect((await ui.find({ type: 'Text', text: '16%' }))?.props).toMatchObject({ color: 'warning' })
   })
 
-  test(`turns a percent bright red only over 85% on ${surface}`, async ($, on) => {
+  test(`turns a percent red only over 85% on ${surface}`, async ($, on) => {
     usage(on, { window: 1_000_000, percent: 85 }, [
       { kind: 'five_hour', percentUsed: 85.4, resetsAt: '2026-10-18T13:15:00Z' },
       { kind: 'seven_day', percentUsed: 86, resetsAt: '2026-10-20T22:00:00Z' },
     ])
     const ui = await mount($, surface)
-    const bright = surface === 'terminal' ? 'redBright' : '#ff453a'
-    expect((await ui.find({ type: 'Text', text: '86%' }))?.props).toMatchObject({ color: bright })
-    // 85 and 85.4 are not over 85: both stay yellow.
+    expect((await ui.find({ type: 'Text', text: '86%' }))?.props).toMatchObject({ color: 'error' })
+    // 85 and 85.4 are not over 85: both stay amber.
     for (const text of (await ui.findAll({ type: 'Text', text: '85%' }))) {
-      expect(text.props).toMatchObject({ color: 'yellow' })
+      expect(text.props).toMatchObject({ color: 'warning' })
     }
     expect(await ui.findAll({ type: 'Text', text: '85%' })).toHaveLength(2)
   })
